@@ -1,4 +1,4 @@
-Neuron Poker: OpenAi gym environment for texas holdem poker
+Neuron Poker: OpenAi gym environment for texas holdem poker.
 ===========================================================
 
 This is an environment for training neural networks to play texas

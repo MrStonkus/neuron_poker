@@ -26,7 +26,7 @@ window_length = 1
 nb_max_start_steps = 1  # random action
 train_interval = 100  # train every 100 steps
 nb_steps_warmup = 50  # before training starts, should be higher than start steps
-nb_steps = 100000
+nb_steps = 100 # deafault 1mln
 memory_limit = int(nb_steps / 2)
 batch_size = 500  # items sampled from memory to train
 enable_double_dqn = False
@@ -147,7 +147,7 @@ class Player:
                             target_model_update=1e-2, policy=policy,
                             processor=CustomProcessor(),
                             batch_size=batch_size, train_interval=train_interval, enable_double_dqn=enable_double_dqn)
-        self.dqn.compile(tf.optimizers.Adam(lr=1e-3), metrics=['mae'])  # pylint: disable=no-member
+        self.dqn.compile(tf.keras.optimizers.Adam(lr=1e-3), metrics=['mae'])  # pylint: disable=no-member
 
         self.dqn.test(self.env, nb_episodes=nb_episodes, visualize=render)
 

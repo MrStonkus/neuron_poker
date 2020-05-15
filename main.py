@@ -97,13 +97,17 @@ class Runner:
         """Create an environment with 6 random players"""
         env_name = 'neuron_poker-v0'
         stack = 500
-        num_of_plrs = 2
+        num_of_plrs = 1
         self.env = gym.make(env_name, initial_stacks=stack, render=self.render)
         for _ in range(num_of_plrs):
             player = RandomPlayer()
             self.env.add_player(player)
 
+            player = KeyPressAgent()
+            self.env.add_player(player)
+
         self.env.reset()
+
 
     def key_press_agents(self):
         """Create an environment with 6 key press agents"""
@@ -182,7 +186,7 @@ class Runner:
         np.random.seed(123)
         env.seed(123)
         #        env.add_player(EquityPlayer(name='equity/50/70', min_call_equity=.5, min_bet_equity=.7))
-        env.add_player(EquityPlayer(name='equity/20/30', min_call_equity=.2, min_bet_equity=.3))
+        # env.add_player(EquityPlayer(name='equity/20/30', min_call_equity=.2, min_bet_equity=.3))
         env.add_player(RandomPlayer())
         # env.add_player(RandomPlayer())
         # env.add_player(RandomPlayer())
@@ -199,17 +203,18 @@ class Runner:
         env_name = 'neuron_poker-v0'
         stack = 500
         self.env = gym.make(env_name, initial_stacks=stack, render=self.render)
-        self.env.add_player(EquityPlayer(name='equity/50/50', min_call_equity=.5, min_bet_equity=.5))
-        self.env.add_player(EquityPlayer(name='equity/50/80', min_call_equity=.8, min_bet_equity=.8))
-        self.env.add_player(EquityPlayer(name='equity/70/70', min_call_equity=.7, min_bet_equity=.7))
-        self.env.add_player(EquityPlayer(name='equity/20/30', min_call_equity=.2, min_bet_equity=.3))
+        # self.env.add_player(EquityPlayer(name='equity/50/50', min_call_equity=.5, min_bet_equity=.5))
+        # self.env.add_player(EquityPlayer(name='equity/50/80', min_call_equity=.8, min_bet_equity=.8))
+        # self.env.add_player(EquityPlayer(name='equity/70/70', min_call_equity=.7, min_bet_equity=.7))
+        # self.env.add_player(EquityPlayer(name='equity/20/30', min_call_equity=.2, min_bet_equity=.3))
         self.env.add_player(RandomPlayer())
         self.env.add_player(PlayerShell(name='keras-rl', stack_size=stack))
 
         self.env.reset()
 
         dqn = DQNPlayer(load_model='dqn1', env=self.env)
-        dqn.play(nb_episodes=self.num_episodes, render=self.render)
+        dqn.play(nb_episodes=1, render=self.render)
+        # dqn.play(nb_episodes=self.num_episodes, render=self.render)
 
     def dqn_train_custom_q1(self):
         """Create 6 players, 4 of them equity based, 2 of them random"""
